@@ -26,6 +26,10 @@
 *.a
 *.lib
 
+#Config file
+.idea
+.idea/*.xml
+
 # Executables
 *.exe
 *.out
