@@ -29,10 +29,15 @@ namespace zoo
                 class AppendFileWriter
                 {
                 public:
-                        AppendFileWriter(std::string basename);
-                        void append(const char *msg, int len);
-                        void flush();
-                        off_t writtenBytes() const;
+                        AppendFileWriter(const std::string& basename, int bufsize);
+                        ~AppendFileWriter();
+                        void Append(const char *msg, int len);
+                        void Flush();
+
+                private
+                       int fd;
+                       char* buf;
+                       int buf_size;
                 };
 
                 class MMapFileWriter

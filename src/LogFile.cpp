@@ -71,3 +71,63 @@ off_t MMapFileWriter::WrittenBytes() const
 {
     return m_writed;
 }
+AppendFileWriter::AppendFileWriter(const std::string& basename, int bufsize)
+{
+    assert(!basename.empty() && bufsize > 0);
+    buf_size = bufsize;
+    writed = 0;
+    if (fd >= 0){
+        close(fd);
+    }
+    // O_CREAT 要指定访问权限属性? 是的 用户读 写 组 读 其他读
+    fd = open(basename.c_str(), O_WRONLY | O_CREAT| O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+    if (fd < 0)
+    {
+        fprintf(stderr, "open new file failed,errno=%d", errno);
+    }
+    else
+    {
+        // 这样创建一个动态的数组 正确吗?  char* buf;
+        buf = new char[buf_size]();
+    }
+}
+AppendFileWriter::~AppendFileWriter()
+{
+    if (fd >= 0)
+    {
+        close(fd);
+        fd=-1;
+    }
+    // 这可以释放一个动态的数组吗?
+    delete [] buf;
+}
+void AppendFileWriter::Append(const char *msg, int len)
+{
+    int next_char_idx = 0;
+    while (next_char_idx < len)
+    {
+        // 直接写入msg 减少一次copy开销
+        if(buf_size > len - next_char_idx)
+        {
+            if (write(fd,msg,len) != len){
+                fprintf(stderr, "write log file failed,errno=%d", errno);
+                return;
+            }
+            return;
+        }
+        for (int i = 0; i < buf_size;i++)
+        {
+            buf[i] = *(msg + next_char_idx);
+            next_char_idx++;
+        }
+        if (write(fd,buf,buf_size) != len){
+            fprintf(stderr, "write log file failed,errno=%d", errno);
+            return;
+        }
+    }
+}
+void AppendFileWriter::Flush()
+{
+  // 不强制刷新, 始终异步的追加写入
+  return;
+}
