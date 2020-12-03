@@ -1,33 +1,28 @@
-#ifndef _ZOO_ANTS_CONDITION_H_
-#define _ZOO_ANTS_CONDITION_H_
-
-#include "Mutex.h"
- 
-
+#ifndef KANGAROON_UTIL_CONDITION_H_
+#define KANGAROON_UTIL_CONDITION_H_
 #include <pthread.h>
 
+#include "mutex.h"
 namespace zoo {
 
-namespace ants{
-class Condition   {
-public:
-	explicit Condition(Mutex& mutex);
-	~Condition();
+namespace kangaroon {
+class Condition {
+   public:
+    explicit Condition(Mutex& mutex);
+    ~Condition();
 
-	void wait();
-	bool waitForSeconds(time_t seconds);
-	void notifyOne();
-	void notifyAll();
-	
-private:
-	Mutex& m_mutex;
-	pthread_cond_t m_condvar;
+    void wait();
+    bool waitForSeconds(int32_t seconds);
+    void notifyOne();
+    void notifyAll();
+
+   private:
+    Mutex& mutex_;
+    pthread_cond_t condvar_;
 };
 
-}
+}  // namespace kangaroon
 
-
-}
-
+}  // namespace zoo
 
 #endif

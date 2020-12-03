@@ -1,25 +1,25 @@
-#include "Condition.h"
+#include "condition.h"
 
 #include <errno.h>
 #include <stdint.h>
 
  
 using namespace zoo;
-using namespace zoo::ants;
+using namespace zoo::kangaroon;
 Condition::Condition(Mutex& mutex)
-	:m_mutex(mutex) {
-	pthread_cond_init(&m_condvar, nullptr);
+	:mutex_(mutex) {
+	pthread_cond_init(&condvar_, nullptr);
 }
 
 Condition::~Condition() {
-	pthread_cond_destroy(&m_condvar);
+	pthread_cond_destroy(&condvar_);
 }
 
 void Condition::wait() {
-	pthread_cond_wait(&m_condvar, m_mutex.getMutex());
+	pthread_cond_wait(&condvar_, mutex_.getMutex());
 }
 
-bool Condition::waitForSeconds(time_t seconds) {
+bool Condition::waitForSeconds(int32_t seconds) {
 	struct timespec abstime;
 	clock_gettime(CLOCK_REALTIME, &abstime);
 
@@ -28,14 +28,14 @@ bool Condition::waitForSeconds(time_t seconds) {
 
 	abstime.tv_sec += static_cast<time_t>((abstime.tv_nsec + nanoseconds) / kNanoSecondsPerSecond);
 	abstime.tv_nsec = static_cast<long>((abstime.tv_nsec + nanoseconds) % kNanoSecondsPerSecond);
-	return ETIMEDOUT == pthread_cond_timedwait(&m_condvar, m_mutex.getMutex(), &abstime);
+	return ETIMEDOUT == pthread_cond_timedwait(&condvar_, m_mutex.getMutex(), &abstime);
 }
 
 void Condition::notifyOne() {
-	pthread_cond_signal(&m_condvar);
+	pthread_cond_signal(&condvar_);
 }
 
 void Condition::notifyAll() {
-	pthread_cond_broadcast(&m_condvar);
+	pthread_cond_broadcast(&condvar_);
 }
  
