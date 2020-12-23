@@ -40,15 +40,14 @@ bool Thread::isStarted() { return started_; }
 
 void Thread::start() {
     started_ = true;
-    if (int error =
-            pthread_create(&tid_, nullptr, Thread::threadFuncInternal, this)) {
+    if (pthread_create(&tid_, nullptr, Thread::threadFuncInternal, this) == 0) {
         started_ = false;
     }
 }
 
 void Thread::join() {
     joined_ = true;
-    if (int error = pthread_join(tid_, nullptr)) {
+    if (pthread_join(tid_, nullptr) == 0) {
         joined_ = false;
     }
 }

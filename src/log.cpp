@@ -91,12 +91,14 @@ void Logger::addAppender(const std::string &appender_name,
 }
 void Logger::delAppender(const std::string &appender_name) {
     MutexGuard guard(mutex_);
-    auto &&iter = std::remove_if(appenders_.begin(), appenders_.end(),
-                                 [&appender_name](const std::string name) {
-                                     return appender_name == name;
-                                 });
-
-    appenders_.erase(iter);
+    for(auto it = appenders_.begin(); it != appenders_.end(); ) {
+        if (it->first == appender_name) {
+            it = appenders_.erase(it);
+        } else {
+            ++it;
+        }
+            
+    }
 }
 void Logger::clearAppender() { appenders_.clear(); }
 

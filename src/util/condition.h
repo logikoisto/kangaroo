@@ -1,7 +1,7 @@
 #ifndef KANGAROON_UTIL_CONDITION_H_
 #define KANGAROON_UTIL_CONDITION_H_
 #include <pthread.h>
-
+#include <stdint.h>
 #include "mutex.h"
 namespace zoo {
 

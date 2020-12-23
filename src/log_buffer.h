@@ -6,7 +6,7 @@ namespace kangaroo {
 
 class LogBuffer {
    public:
-    LogBuffer(size_t total);
+    LogBuffer(size_t total = 1024 * 1024 * 10);
     ~LogBuffer();
 
     void clear();

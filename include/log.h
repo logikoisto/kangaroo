@@ -40,11 +40,6 @@ class Logger {
 
 }  // namespace zoo
 
-// #define log_out(lvl, fmt, args...)                                            \
-//     if (lvl >= zoo::kangaroo::kLogConfig.log_level)                           \
-//     zoo::kangaroo::Logger::getLogger()->writeLog(lvl, __FILE__, __FUNCTION__, \
-//                                                  __LINE__, fmt, ##args)
-
 #define log_fatal(fmt, args...) \
     zoo::kangaroo::Logger::fatal(fmt, ##args)
 #define log_error(fmt, args...) \

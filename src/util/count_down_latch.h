@@ -14,15 +14,16 @@ namespace zoo
             explicit CountDownLatch(int count);
             void wait();
             void countDown();
-            inline int getCount() const
+            inline int32_t getCount() const
             {
                  MutexGuard lk(mutex_);
-                return m_count;
+                return count_;
             }
         private:
+            int32_t count_ = 0;
             mutable Mutex mutex_;
             Condition condition_;
-            int count_;
+            
         };
     } // namespace kangaroo
     

@@ -6,6 +6,7 @@
 #include "condition.h"
 #include "mutex.h"
 #include "thread.h"
+#include "log_buffer.h"
 namespace zoo {
 namespace kangaroo {
 class AsyncFileAppender : public LogAppenderInterface {
@@ -28,7 +29,7 @@ class AsyncFileAppender : public LogAppenderInterface {
     CountDownLatch countdown_latch_;
     Thread persit_thread_;
     std::unique_ptr<LogBuffer> cur_buffer_;
-    std::vector<std::unique_ptr<LogBuffer>> buffers_;
+    std::vector<std::unique_ptr<LogBuffer> > buffers_;
 };
 }  // namespace kangaroo
 

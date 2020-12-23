@@ -29,7 +29,7 @@ class LogFile {
 
    private:
     std::string basename_;
-    uint32_t roll_size_;
+    int32_t roll_size_;
     uint32_t flush_interval_;
     //多久进行检查一次，因为可能日志没满，但是跨天了
     uint32_t check_freq_count_;

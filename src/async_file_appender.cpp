@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#include "../include/log.h"
+#include "log.h"
 #include "log_buffer.h"
 #include "log_file.h"
 namespace zoo {
@@ -15,7 +15,7 @@ AsyncFileAppender::AsyncFileAppender(const std::string& basename)
     : started_(false),
       running_(false),
       persist_period_(kLogConfig.file_option.log_flush_interval),
-      basename_(kLogConfig.file_option.file_path),
+      basename_(basename),
       cond_(mutex_),
       countdown_latch_(1),
       persit_thread_(std::bind(&AsyncFileAppender::threadFunc, this), "AsyncLogging"),
@@ -31,6 +31,7 @@ void AsyncFileAppender::append(const std::string& log) {
     MutexGuard guard(mutex_);
 
     if (cur_buffer_->available() >= log.size()) {
+         
         cur_buffer_->append(log.c_str(), log.size());
     } else {
         buffers_.push_back(std::move(cur_buffer_));

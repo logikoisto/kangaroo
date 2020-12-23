@@ -57,7 +57,7 @@ class MMapFileWriter : public FileWriter {
             msync(buffer_, mem_size_, MS_ASYNC);
         }
     }
-    int32_t writtenBytes() const { return writed_; }
+    uint32_t writtenBytes() const { return writed_; }
 
    private:
     int fd_;
