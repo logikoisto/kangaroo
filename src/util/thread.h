@@ -4,7 +4,7 @@
 
 #include <functional>
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 class Thread {
    public:
@@ -28,7 +28,7 @@ class Thread {
     Func cb_;
 };
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

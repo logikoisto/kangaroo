@@ -3,7 +3,7 @@
 #include <memory>
 
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 class LogAppenderInterface {
    public:
     using Ptr = std::shared_ptr<LogAppenderInterface>;
@@ -12,7 +12,7 @@ class LogAppenderInterface {
     virtual ~LogAppenderInterface() {}
     virtual void append(const char* msg, size_t len) = 0;
 };
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

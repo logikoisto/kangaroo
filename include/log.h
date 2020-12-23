@@ -8,7 +8,7 @@
 #include "mutex.h"
 #include "singleton.h"
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 extern LogConfig kLogConfig;
 class Logger {
    public:
@@ -26,7 +26,7 @@ class Logger {
                      LogAppenderInterface::Ptr appender);
     void delAppender(const std::string& appender_name);
     void clearAppender();
-    
+
     private:
     void writeLog(LogLevel log_level, const char *file_name,
                   const char *function_name, int32_t line_num, const char *fmt,
@@ -36,7 +36,7 @@ class Logger {
     Mutex mutex_;
     std::map<std::string, LogAppenderInterface::Ptr> appenders_;
 };
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 
@@ -46,14 +46,14 @@ class Logger {
 //                                                  __LINE__, fmt, ##args)
 
 #define log_fatal(fmt, args...) \
-    zoo::kangaroon::Logger::fatal(fmt, ##args)
+    zoo::kangaroo::Logger::fatal(fmt, ##args)
 #define log_error(fmt, args...) \
-    zoo::kangaroon::Logger::error(fmt, ##args)
+    zoo::kangaroo::Logger::error(fmt, ##args)
 #define log_warn(fmt, args...) \
-    zoo::kangaroon::Logger::warn(fmt, ##args)
+    zoo::kangaroo::Logger::warn(fmt, ##args)
 #define log_debug(fmt, args...) \
-    zoo::kangaroon::Logger::debug(fmt, ##args)
+    zoo::kangaroo::Logger::debug(fmt, ##args)
 #define log_info(fmt, args...) \
-    zoo::kangaroon::Logger::info(fmt, ##args)
+    zoo::kangaroo::Logger::info(fmt, ##args)
 
 #endif

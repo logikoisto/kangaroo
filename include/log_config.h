@@ -7,7 +7,7 @@
 #include "log_level.h"
 #include "file_writer_type.h"
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 struct LogConfig {
     uint32_t log_buffer_size = 4000;
     uint32_t log_buffer_nums = 2;
@@ -21,7 +21,7 @@ struct LogConfig {
 
     }file_option;
 };
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

@@ -3,7 +3,7 @@
 
 #include <string.h>
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 LogBuffer::LogBuffer(size_t total) : total_(total), available_(total), cur_(0) {
     data_ = new char[total];
@@ -28,6 +28,6 @@ void LogBuffer::append(const char* data, size_t len) {
 const char* LogBuffer::data() const { return data_; }
 
 size_t LogBuffer::length() const { return cur_; }
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo

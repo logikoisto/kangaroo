@@ -3,7 +3,7 @@
 
 #include <pthread.h>
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 template <typename T>
 class Singleton  {
@@ -36,6 +36,6 @@ pthread_once_t Singleton<T>::once_control = PTHREAD_ONCE_INIT;
 template <typename T>
 T* Singleton<T>::value_ = nullptr;
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 }  // namespace zoo
 #endif

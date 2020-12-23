@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include <string>
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 class Timestamp {
    public:
@@ -41,7 +41,7 @@ inline int64_t operator-(Timestamp lhs, Timestamp rhs) {
     return lhs.getMicroSecondsFromEpoch() - rhs.getMicroSecondsFromEpoch();
 }
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 #endif

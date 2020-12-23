@@ -6,7 +6,7 @@
 
 namespace zoo
 {
-    namespace kangaroon
+    namespace kangaroo
     {
         class CountDownLatch
         {
@@ -24,7 +24,7 @@ namespace zoo
             Condition condition_;
             int count_;
         };
-    } // namespace kangaroon
+    } // namespace kangaroo
     
 } // namespace zoo
 

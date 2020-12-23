@@ -7,7 +7,7 @@
 #include "mutex.h"
 #include "thread.h"
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 class AsyncFileAppender : public LogAppenderInterface {
    public:
     AsyncFileAppender(const std::string& basename);
@@ -30,7 +30,7 @@ class AsyncFileAppender : public LogAppenderInterface {
     std::unique_ptr<LogBuffer> cur_buffer_;
     std::vector<std::unique_ptr<LogBuffer>> buffers_;
 };
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

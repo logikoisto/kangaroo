@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 enum class LogLevel : uint8_t {
     TRACE = 0,
     DEBUG = 1,
@@ -12,7 +12,7 @@ enum class LogLevel : uint8_t {
     ERROR = 4,
     FATAL = 5
 };
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

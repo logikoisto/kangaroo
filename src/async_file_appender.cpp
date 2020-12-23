@@ -9,7 +9,7 @@
 #include "log_buffer.h"
 #include "log_file.h"
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 AsyncFileAppender::AsyncFileAppender(const std::string& basename)
     : started_(false),
@@ -114,6 +114,6 @@ void AsyncFileAppender::threadFunc() {
     std::cerr << "AsyncFileAppender flush complete" << std::endl;
 }
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo

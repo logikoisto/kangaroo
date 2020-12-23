@@ -3,13 +3,13 @@
 #include <stdint.h>
 namespace zoo
 {
-    namespace kangaroon
+    namespace kangaroo
     {
         enum class FileWriterType : uint8_t{
             MMAPFILE = 0,
             APPENDFILE
         };
-    } // namespace kangaroon
+    } // namespace kangaroo
     
 } // namespace zoo
 

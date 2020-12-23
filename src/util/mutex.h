@@ -2,7 +2,7 @@
 #define KANGAROON_UTIL_MUTEX_H_
 #include <pthread.h>
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 class Mutex {
    public:
     Mutex() {
@@ -31,7 +31,7 @@ class MutexGuard {
     Mutex& mutex_;
 };
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

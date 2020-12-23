@@ -5,7 +5,7 @@
 #include "mutex.h"
 namespace zoo {
 
-namespace kangaroon {
+namespace kangaroo {
 class Condition {
    public:
     explicit Condition(Mutex& mutex);
@@ -21,7 +21,7 @@ class Condition {
     pthread_cond_t condvar_;
 };
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

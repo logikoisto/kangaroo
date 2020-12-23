@@ -6,7 +6,7 @@
 
 #include "file_writer_type.h"
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 class FileWriter {
    public:
     FileWriter() = default;
@@ -41,7 +41,7 @@ class LogFile {
     FileWriterType file_writer_type_;
     constexpr static int kRollPerSeconds = 60 * 60 * 24;
 };
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 

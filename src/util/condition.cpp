@@ -5,7 +5,7 @@
 
  
 using namespace zoo;
-using namespace zoo::kangaroon;
+using namespace zoo::kangaroo;
 Condition::Condition(Mutex& mutex)
 	:mutex_(mutex) {
 	pthread_cond_init(&condvar_, nullptr);

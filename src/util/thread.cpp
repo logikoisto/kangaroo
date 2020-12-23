@@ -6,7 +6,7 @@
 
 #include <atomic>
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 std::atomic<int> thread_count(0);
 static __thread pid_t t_tid = 0;
@@ -62,5 +62,5 @@ void* Thread::threadFuncInternal(void* arg) {
     cb();
     return 0;
 }
-}  // namespace kangaroon
+}  // namespace kangaroo
 }  // namespace zoo

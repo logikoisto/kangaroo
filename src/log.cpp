@@ -11,7 +11,7 @@
 #include "time_stamp.h"
 
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 namespace {
 std::string getLogLevelStr(LogLevel log_level) {
     switch (log_level) {
@@ -137,6 +137,6 @@ void Logger::writeLog(LogLevel log_level, const char *file_name,
         appender.second->append(prefix.data(), prefix.size());
     }
 }
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo

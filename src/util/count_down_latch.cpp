@@ -1,7 +1,7 @@
 #include "count_down_latch.h"
 
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 CountDownLatch::CountDownLatch(int count)
     : count_(count), mutex_(), condition_(mutex_) {}
 
@@ -22,6 +22,6 @@ void CountDownLatch::countDown() {
     }
 }
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo

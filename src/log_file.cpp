@@ -11,7 +11,7 @@
 #include <errno.h>
 
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 namespace {
 class MMapFileWriter : public FileWriter {
@@ -202,6 +202,6 @@ bool LogFile::rollFile() {
     return true;
 }
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo

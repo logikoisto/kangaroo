@@ -5,7 +5,7 @@
 #include <iostream>
 namespace zoo{
 
-namespace kangaroon{
+namespace kangaroo{
 Timestamp Timestamp::now() {
     struct timeval tv;
     if (gettimeofday(&tv, nullptr)) {

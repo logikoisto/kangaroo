@@ -2,7 +2,7 @@
 #define KANGAROON_LOG_BUFFER_H_
 #include <sys/types.h>
 namespace zoo {
-namespace kangaroon {
+namespace kangaroo {
 
 class LogBuffer {
    public:
@@ -30,7 +30,7 @@ class LogBuffer {
     void (*cookie_)();
 };
 
-}  // namespace kangaroon
+}  // namespace kangaroo
 
 }  // namespace zoo
 
