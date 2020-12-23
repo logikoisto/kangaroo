@@ -3,9 +3,9 @@
 #include <time.h>
 
 #include <iostream>
-namespace {
+namespace zoo{
 
-namespace {
+namespace kangaroon{
 Timestamp Timestamp::now() {
     struct timeval tv;
     if (gettimeofday(&tv, nullptr)) {
@@ -21,7 +21,7 @@ time_t Timestamp::getSec() const {
 suseconds_t Timestamp::getUsec() const {
     return microseconds_from_epoch_ % kMicrosecondsPerSecond;
 }
-std::string Timestamp::nowStrTime() const {
+std::string Timestamp::nowStrTime() {
     time_t timep;
     time(&timep);
     char res[64];

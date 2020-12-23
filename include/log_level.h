@@ -1,5 +1,5 @@
-#ifndef KANGAROON_INLCUDE_LOG_LEVEL_H_
-#define KANGAROON_INLCUDE_LOG_LEVEL_H_
+#ifndef KANGAROON_LOG_LEVEL_H_
+#define KANGAROON_LOG_LEVEL_H_
 #include <stdint.h>
 
 namespace zoo {

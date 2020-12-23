@@ -5,15 +5,20 @@ namespace zoo {
 namespace kangaroon {
 class Mutex {
    public:
-    Mutex();
-    ~Mutex();
+    Mutex() {
+        pthread_mutex_init(&mutex_, NULL);
+    }
+    ~Mutex() {
+        pthread_mutex_destroy(&mutex_);
+    }
 
     void lock();
     void unlock();
 
+    pthread_mutex_t* getMutex() {
+        return &mutex_;
+    }
    private:
-    pthread_mutex_t* getMutex();
-
     pthread_mutex_t mutex_;
 };
 

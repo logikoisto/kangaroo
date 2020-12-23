@@ -1,5 +1,9 @@
 #include "log.h"
 
+#include <stdarg.h>
+#include <string.h>
+
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -10,7 +14,7 @@ namespace zoo {
 namespace kangaroon {
 namespace {
 std::string getLogLevelStr(LogLevel log_level) {
-    switch (level) {
+    switch (log_level) {
 #define XX(name)         \
     case LogLevel::name: \
         return #name;    \
@@ -82,21 +86,19 @@ void Logger::fatal(const char *format, ...) {
 /*需要加锁的*/
 void Logger::addAppender(const std::string &appender_name,
                          LogAppenderInterface::Ptr appender) {
-        MutexGuard guard(mutex_);
+    MutexGuard guard(mutex_);
     appenders_[appender_name] = appender;
 }
-void Logger::delAppender(const std::string& appender_name) {
+void Logger::delAppender(const std::string &appender_name) {
     MutexGuard guard(mutex_);
-    auto&& iter = reomve_if(appenders.begin(),appenders.end(),[&appender_name](const std::string name){
-        return appender_name == name;
-    })
-     
-    appenders.erase(iter);
-     
+    auto &&iter = std::remove_if(appenders_.begin(), appenders_.end(),
+                                 [&appender_name](const std::string name) {
+                                     return appender_name == name;
+                                 });
+
+    appenders_.erase(iter);
 }
-void Logger::clearAppender() {
-    appenders.clear();
-}
+void Logger::clearAppender() { appenders_.clear(); }
 
 void Logger::writeLog(LogLevel log_level, const char *file_name,
                       const char *function_name, int32_t line_num,
@@ -105,36 +107,34 @@ void Logger::writeLog(LogLevel log_level, const char *file_name,
         return;
     }
     std::string str_result;
-    if (NULL != fmt) {
-        va_list marker = NULL;
-        va_start(marker, fmt);                        //初始化变量参数
-        size_t length = _vscprintf(fmt, marker) + 1;  //获取格式化字符串长度
+    if (nullptr != fmt) {
+        size_t length = vprintf(fmt, ap) + 1;  //获取格式化字符串长度
         std::vector<char> fmt_bufs(length,
                                    '\0');  //创建用于存储格式化字符串的字符数组
-        int writen_n = _vsnprintf_s(&fmt_bufs[0], fmt_bufs.size(), length,
-                                    writen_n, marker);
+        int writen_n = vsnprintf(&fmt_bufs[0], fmt_bufs.size(), fmt, ap);
         if (writen_n > 0) {
             str_result = &fmt_bufs[0];
         }
-        va_end(marker);  //重置变量参数
     }
     if (str_result.empty()) {
         return;
     }
-    auto getSourceFileName = [](const char *file_name) {
+    const auto &getSourceFileName = [](const char *file_name) {
         return strrchr(file_name, '/') ? strrchr(file_name, '/') + 1
                                        : file_name;
     };
     std::string prefix;
-    prefix.append(Timestamp.nowStrTime() + "-");
+    prefix.append(Timestamp::nowStrTime() + "-");
     prefix.append(getLogLevelStr(log_level) + "-");
-    prefix.append(getSourceFileName(file_name) + "-");
-    prefix.append(function_name + "-");
+    prefix.append(getSourceFileName(file_name));
+    prefix.append("-");
+    prefix.append(function_name);
+    prefix.append("-");
     prefix.append(std::to_string(line_num) + "-");
     prefix.append(str_result);
     MutexGuard guard(mutex_);
     for (const auto &appender : appenders_) {
-        appender.append(prefix.data(), prefix.size());
+        appender.second->append(prefix.data(), prefix.size());
     }
 }
 }  // namespace kangaroon

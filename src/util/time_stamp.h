@@ -18,7 +18,7 @@ class Timestamp {
     uint64_t getMicroSecondsFromEpoch() { return microseconds_from_epoch_; }
     time_t getSec() const;
     suseconds_t getUsec() const;
-    static std::string nowStrTime() const;
+    static std::string nowStrTime();
     static Timestamp now();
 
    private:

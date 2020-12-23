@@ -1,6 +1,6 @@
 #ifndef KANGAROON_ASYNC_FILE_APPENDER_H_
 #define KANGAROON_ASYNC_FILE_APPENDER_H_
-
+#include <vector>
 #include "log_appender_interface.h"
 #include "count_down_latch.h"
 #include "condition.h"
@@ -12,7 +12,7 @@ class AsyncFileAppender : public LogAppenderInterface {
    public:
     AsyncFileAppender(const std::string& basename);
     ~AsyncFileAppender();
-    void append(const std::string& log) override;
+    void append(const std::string& log);
     void start();
     void stop();
 

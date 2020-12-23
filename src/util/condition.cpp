@@ -28,7 +28,7 @@ bool Condition::waitForSeconds(int32_t seconds) {
 
 	abstime.tv_sec += static_cast<time_t>((abstime.tv_nsec + nanoseconds) / kNanoSecondsPerSecond);
 	abstime.tv_nsec = static_cast<long>((abstime.tv_nsec + nanoseconds) % kNanoSecondsPerSecond);
-	return ETIMEDOUT == pthread_cond_timedwait(&condvar_, m_mutex.getMutex(), &abstime);
+	return ETIMEDOUT == pthread_cond_timedwait(&condvar_, mutex_.getMutex(), &abstime);
 }
 
 void Condition::notifyOne() {

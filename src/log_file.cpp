@@ -1,6 +1,15 @@
 #include "log_file.h"
 
 #include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/mman.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <errno.h>
+
 namespace zoo {
 namespace kangaroon {
 
@@ -73,7 +82,7 @@ class AppendFileWriter : public FileWriter {
                 int err = ferror(fp_);
                 if (err) {
                     fprintf(stderr, "AppendFile::append() failed %s\n",
-                            strerror_tl(err));
+                            strerror(err));
                 }
                 break;
             }

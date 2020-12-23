@@ -1,5 +1,5 @@
-#ifndef KANGAROON_UTIL_MUTEX_H_
-#define KANGAROON_UTIL_MUTEX_H_
+#ifndef KANGAROON_UTIL_THREAD_H_
+#define KANGAROON_UTIL_THREAD_H_
 #include <pthread.h>
 
 #include <functional>

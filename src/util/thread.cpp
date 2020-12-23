@@ -47,8 +47,6 @@ void Thread::start() {
 }
 
 void Thread::join() {
-    assert(started_);
-    assert(!joined_);
     joined_ = true;
     if (int error = pthread_join(tid_, nullptr)) {
         joined_ = false;

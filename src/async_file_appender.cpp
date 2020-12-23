@@ -3,7 +3,9 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "log.h"
+#include <iostream>
+
+#include "../include/log.h"
 #include "log_buffer.h"
 #include "log_file.h"
 namespace zoo {
@@ -16,7 +18,7 @@ AsyncFileAppender::AsyncFileAppender(const std::string& basename)
       basename_(kLogConfig.file_option.file_path),
       cond_(mutex_),
       countdown_latch_(1),
-      persit_thread_(std::bind(&AsyncFileAppender::threadFunc, this)),
+      persit_thread_(std::bind(&AsyncFileAppender::threadFunc, this), "AsyncLogging"),
       cur_buffer_(new LogBuffer(kLogConfig.log_buffer_size)) {}
 
 AsyncFileAppender::~AsyncFileAppender() {
@@ -48,7 +50,7 @@ void AsyncFileAppender::start() {
 
 void AsyncFileAppender::stop() {
     started_ = false;
-    cond_.notify();
+    cond_.notifyOne();
     persit_thread_.join();
 }
 
@@ -56,8 +58,9 @@ void AsyncFileAppender::threadFunc() {
     std::unique_ptr<LogBuffer> buffer(
         new LogBuffer(kLogConfig.log_buffer_size));
     std::vector<std::unique_ptr<LogBuffer>> persist_buffers;
-    persist_buffers.reverse(kLogConfig.log_buffer_nums);
-    LogFile log_file(basename_);
+    persist_buffers.reserve(kLogConfig.log_buffer_nums);
+    LogFile log_file(basename_, kLogConfig.file_option.log_flush_file_size,
+    kLogConfig.file_option.log_flush_interval, 1024, FileWriterType::APPENDFILE);
 
     countdown_latch_.countDown();
 

@@ -18,8 +18,9 @@ class FileWriter {
 };
 class LogFile {
    public:
-    LogFile(const string& basename, off_t roll_size, int32_t flush_interval,
-            int32_t check_freq_count,FileWriterType file_writer_type);
+    LogFile(const std::string& basename, int32_t roll_size,
+                 int32_t flush_interval, int32_t check_interval,
+                 FileWriterType file_writer_type);
     ~LogFile();
 
     void append(const char* logline, int32_t len);

@@ -15,7 +15,12 @@ class Singleton  {
         });
         return value_;
     }
-    static void destroy() { delete value_; }
+    static void destroy() { 
+        if (nullptr != value_) {
+            delete value_;
+        }
+         
+    }
 
    private:
     Singleton();
@@ -29,7 +34,7 @@ template <typename T>
 pthread_once_t Singleton<T>::once_control = PTHREAD_ONCE_INIT;
 
 template <typename T>
-T* Singleton<T>::value_;
+T* Singleton<T>::value_ = nullptr;
 
 }  // namespace kangaroon
 }  // namespace zoo
