@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(kangaroo CXX)
+project(kangaroo)
 
 set(CXX_FLAGS
  -O2
@@ -16,14 +16,30 @@ set(CXX_FLAGS
 string(REPLACE ";" " " CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
 # ---[ Includes
-include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${PROJECT_SOURCE_DIR}/include)
-include_directories(${PROJECT_SOURCE_DIR}/src/util)
+# include directories
+INCLUDE_DIRECTORIES(
+  ${PROJECT_SOURCE_DIR}/src
+  ${PROJECT_SOURCE_DIR}/include
+  ${PROJECT_SOURCE_DIR}/src/util
+  /usr/local/include
+  /usr/include
+)
 
 # --[ Output directory
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+# set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
+# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+LINK_DIRECTORIES(
+  ${PROJECT_BINARY_DIR}/libs
+
+  /usr/local/lib
+  /use/lib
+)
+
+
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/libs)
 
 # ---[ Subdirectories
 add_subdirectory(src)

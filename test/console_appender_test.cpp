@@ -14,6 +14,7 @@ class ConsoleAppender : public LogAppenderInterface {
     ~ConsoleAppender() = default;
     void append(const char* msg, size_t len) { cout <<"msg = "<< msg <<", len = " << len<< endl; }
 };
+
 int main() {
     LogConfig log_config;
     zoo::kangaroo::Logger::setGlobalConfig(log_config);
