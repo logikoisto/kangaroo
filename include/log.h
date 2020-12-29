@@ -9,7 +9,7 @@
 #include "singleton.h"
 namespace zoo {
 namespace kangaroo {
-extern LogConfig kLogConfig;
+static LogConfig kLogConfig;
 class Logger {
    public:
     static Logger *getLogger() { return Singleton<Logger>::getInstance(); }
