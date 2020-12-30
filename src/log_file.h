@@ -10,11 +10,10 @@ namespace kangaroo {
 class FileWriter {
    public:
     FileWriter() = default;
-    FileWriter(const std::string& filename);
-    ~FileWriter() = default;
-    virtual void append(const char* msg, int32_t len);
-    virtual void flush();
-    virtual int32_t writtenBytes();
+    virtual ~FileWriter() = default;
+    virtual void append(const char* msg, int32_t len) = 0;
+    virtual void flush() = 0;
+    virtual uint32_t writtenBytes() const = 0;
 };
 class LogFile {
    public:
@@ -29,7 +28,7 @@ class LogFile {
 
    private:
     std::string basename_;
-    int32_t roll_size_;
+    uint32_t roll_size_;
     uint32_t flush_interval_;
     //多久进行检查一次，因为可能日志没满，但是跨天了
     uint32_t check_freq_count_;

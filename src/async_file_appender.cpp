@@ -27,17 +27,17 @@ AsyncFileAppender::~AsyncFileAppender() {
     }
 }
 
-void AsyncFileAppender::append(const std::string& log) {
+void AsyncFileAppender::append(const char* msg, size_t len) {
     MutexGuard guard(mutex_);
 
-    if (cur_buffer_->available() >= log.size()) {
+    if (cur_buffer_->available() >= len) {
          
-        cur_buffer_->append(log.c_str(), log.size());
+        cur_buffer_->append(msg, len);
     } else {
         buffers_.push_back(std::move(cur_buffer_));
 
         cur_buffer_.reset(new LogBuffer(kLogConfig.log_buffer_size));
-        cur_buffer_->append(log.c_str(), log.size());
+        cur_buffer_->append(msg, len);
         cond_.notifyOne();
     }
 }

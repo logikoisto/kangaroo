@@ -3,7 +3,7 @@
 #include "log.h"
 #include "log_appender_interface.h"
 #include "log_config.h"
-
+#include "async_file_appender.h"
 using namespace zoo;
 using namespace zoo::kangaroo;
 
@@ -20,6 +20,8 @@ int main() {
     zoo::kangaroo::Logger::setGlobalConfig(log_config);
     zoo::kangaroo::Logger::getLogger()->addAppender(
         "console", LogAppenderInterface::Ptr(new ConsoleAppender()));
+        zoo::kangaroo::Logger::getLogger()->addAppender(
+        "asyncfile", LogAppenderInterface::Ptr(new AsyncFileAppender("./lg/")));
     const uint32_t count = 1000;
     for (uint32_t index = 0 ;index < count ; ++index ) {
         zoo::kangaroo::Logger::getLogger()->fatal("%d hello world", index);
