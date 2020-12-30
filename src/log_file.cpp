@@ -1,14 +1,14 @@
 #include "log_file.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/mman.h>
-#include <stdlib.h>
-#include <fcntl.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 namespace zoo {
 namespace kangaroo {
@@ -72,7 +72,11 @@ class AppendFileWriter : public FileWriter {
         : fp_(::fopen(filename.c_str(), "ae")) {
         ::setbuffer(fp_, buffer_, sizeof buffer_);
     }
-    ~AppendFileWriter() { ::fclose(fp_); }
+    ~AppendFileWriter() {
+        if (fp_) {
+            ::fclose(fp_);
+        }
+    }
     void append(const char* msg, int32_t len) {
         size_t n = ::fwrite_unlocked(msg, 1, len, fp_);
         size_t remain = len - n;
@@ -150,10 +154,12 @@ LogFile::LogFile(const std::string& basename, int32_t roll_size,
       start_of_period_(0),
       last_roll_(0),
       last_flush_(0) {
+    time_t now = 0;
+    std::string filename = getLogFileName(basename_, &now);
     if (file_writer_type == FileWriterType::MMAPFILE) {
-        file_ = std::make_unique<MMapFileWriter>(basename, roll_size_);
+        file_ = std::make_shared<MMapFileWriter>(filename, roll_size_);
     } else {
-        file_ = std::make_unique<AppendFileWriter>(basename);
+        file_ = std::make_shared<AppendFileWriter>(filename);
     }
     file_writer_type_ = file_writer_type;
     rollFile();

@@ -2,6 +2,7 @@
 
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h> 
 
 #include <iostream>
 
@@ -19,7 +20,10 @@ AsyncFileAppender::AsyncFileAppender(const std::string& basename)
       cond_(mutex_),
       countdown_latch_(1),
       persit_thread_(std::bind(&AsyncFileAppender::threadFunc, this), "AsyncLogging"),
-      cur_buffer_(new LogBuffer(kLogConfig.log_buffer_size)) {}
+      cur_buffer_(new LogBuffer(kLogConfig.log_buffer_size)) {
+      mkdir(basename_.c_str(), 0755);
+      start();
+      }
 
 AsyncFileAppender::~AsyncFileAppender() {
     if (started_) {
@@ -61,7 +65,7 @@ void AsyncFileAppender::threadFunc() {
     std::vector<std::unique_ptr<LogBuffer>> persist_buffers;
     persist_buffers.reserve(kLogConfig.log_buffer_nums);
     LogFile log_file(basename_, kLogConfig.file_option.log_flush_file_size,
-    kLogConfig.file_option.log_flush_interval, 1024, FileWriterType::APPENDFILE);
+    kLogConfig.file_option.log_flush_interval, 1024, kLogConfig.file_option.file_writer_type);
 
     countdown_latch_.countDown();
 
@@ -111,8 +115,6 @@ void AsyncFileAppender::threadFunc() {
         }
     }
     log_file.flush();
-
-    std::cerr << "AsyncFileAppender flush complete" << std::endl;
 }
 
 }  // namespace kangaroo

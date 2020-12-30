@@ -18,8 +18,8 @@ class ConsoleAppender : public LogAppenderInterface {
 int main() {
     LogConfig log_config;
     zoo::kangaroo::Logger::setGlobalConfig(log_config);
-    zoo::kangaroo::Logger::getLogger()->addAppender(
-        "console", LogAppenderInterface::Ptr(new ConsoleAppender()));
+    // zoo::kangaroo::Logger::getLogger()->addAppender(
+    //     "console", LogAppenderInterface::Ptr(new ConsoleAppender()));
         zoo::kangaroo::Logger::getLogger()->addAppender(
         "asyncfile", LogAppenderInterface::Ptr(new AsyncFileAppender("./lg/")));
     const uint32_t count = 1000;

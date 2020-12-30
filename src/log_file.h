@@ -36,7 +36,7 @@ class LogFile {
     time_t start_of_period_;
     time_t last_roll_;
     time_t last_flush_;
-    std::unique_ptr<FileWriter> file_;
+    std::shared_ptr<FileWriter> file_;
     FileWriterType file_writer_type_;
     constexpr static int kRollPerSeconds = 60 * 60 * 24;
 };
