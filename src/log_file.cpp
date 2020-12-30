@@ -16,7 +16,7 @@ namespace kangaroo {
 namespace {
 class MMapFileWriter : public FileWriter {
    public:
-    MMapFileWriter(const std::string& basename, int mem_size) {
+    MMapFileWriter(const std::string& basename, uint32_t mem_size) {
         mem_size_ = mem_size;
         writed_ = 0;
         if (fd_ >= 0) {

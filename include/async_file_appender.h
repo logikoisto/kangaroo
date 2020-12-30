@@ -13,7 +13,7 @@ class AsyncFileAppender : public LogAppenderInterface {
    public:
     AsyncFileAppender(const std::string& basename);
     ~AsyncFileAppender();
-    void append(const std::string& log);
+    void append(const char* msg, size_t len);
     void start();
     void stop();
 
